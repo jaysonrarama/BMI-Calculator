@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BMI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff url("pic.jpg") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+    .calculator {
+      background: #f1e789;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 300px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input[type="number"] {
+      padding: 8px;
+      border: 1px solid #d6a549;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #ff00c8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #cc0099;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Rarama</h2>
+    <h2>BMI Calculator</h2>
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" placeholder="Enter your weight" required>
+
+    <label for="height">Height (cm):</label>
+    <input type="number" id="height" placeholder="Enter your height" required>
+
+    <button onclick="calculateBMI()">Calculate BMI</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const heightCm = parseFloat(document.getElementById('height').value);
+      const resultDiv = document.getElementById('result');
+
+      if (!weight || !heightCm || weight <= 0 || heightCm <= 0) {
+        resultDiv.innerHTML = "Please enter valid positive numbers.";
+        resultDiv.style.color = "red";
+        return;
+      }
+
+      const heightM = heightCm / 100;
+      const bmi = weight / (heightM * heightM);
+      const roundedBMI = bmi.toFixed(1);
+
+      let category = "";
+
+      if (bmi < 18.5) {
+        category = "Underweight";
+      } else if (bmi < 25) {
+        category = "Normal weight";
+      } else if (bmi < 30) {
+        category = "Overweight";
+      } else {
+        category = "Obese";
+      }
+
+      resultDiv.innerHTML = `Your BMI is <strong>${roundedBMI}</strong> (${category}).`;
+      resultDiv.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>
